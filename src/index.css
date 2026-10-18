@@ -29,6 +29,51 @@
   background: linear-gradient(180deg, rgba(20, 19, 20, 0.7) 0%, rgba(28, 27, 28, 0.7) 100%);
 }
 
+/* Collection-only sizing keeps tall artwork prominent without letting it dominate the viewport. */
+.artworks-collection-media {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 639px) and (orientation: landscape) {
+  .artworks-collection-media {
+    width: min(100%, var(--artwork-compact-landscape-width));
+    justify-self: center;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) and (orientation: landscape) {
+  .artworks-collection-card {
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .artworks-collection-copy {
+    max-width: none;
+  }
+
+  .artworks-collection-purchase {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .artworks-collection-media {
+    width: min(100%, var(--artwork-tablet-width));
+    justify-self: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .artworks-collection-media {
+    width: min(100%, var(--artwork-desktop-width));
+    justify-self: center;
+  }
+}
+
 .trabalhos-track {
   -ms-overflow-style: none;
   scrollbar-width: none;
