@@ -1,11 +1,16 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type TouchEvent } from "react";
+import arashiPrimaryImage from "../arashi.jpeg";
+import arashiSecondaryImage from "../arashi1.jpeg";
+import botanicaImage from "../botanica.jpeg";
 import douradoImage from "../dourado.jpeg";
 import hannyaPrimaryImage from "../Hannya 1.jpeg";
 import hannyaSecondaryImage from "../Hannya.jpeg";
 import ryuImage from "../Ryu.jpeg";
+import ryuSecondaryImage from "../ryu1.jpeg";
 import samuraiPrimaryImage from "../samurai.jpeg";
 import samuraiSecondaryImage from "../samurai2.jpeg";
+import sonoraImage from "../sonora.jpeg";
 import { getRevealProps, getStaggerItemProps, getStaggerProps } from "../lib/scrollReveal";
 
 type ArtworkImage = {
@@ -16,9 +21,11 @@ type ArtworkImage = {
 
 type Artwork = {
   description: string;
+  dimensions?: string;
   images: ArtworkImage[];
   name: string;
   price: string;
+  status: "available" | "sold_out";
   whatsappMessage: string;
 };
 
@@ -34,9 +41,14 @@ const ARTWORKS: Artwork[] = [
   {
     description:
       "Entre ondas turbulentas e nuvens carregadas, o dragão emerge como símbolo de força, sabedoria e transformação. Inspirada na estética oriental japonesa, a obra explora o contraste entre o vermelho e o negro, evocando a dualidade entre destruição e renascimento, caos e equilíbrio.",
-    images: [{ height: 1280, src: ryuImage, width: 960 }],
+    dimensions: "89 x 60 cm",
+    images: [
+      { height: 1280, src: ryuImage, width: 960 },
+      { height: 720, src: ryuSecondaryImage, width: 1280 },
+    ],
     name: "Ryū — O Despertar do Dragão",
     price: "R$ 2.499,00",
+    status: "available",
     whatsappMessage:
       "Olá! Tenho interesse na obra Ryū — O Despertar do Dragão, no valor de R$ 2.499,00. Gostaria de saber mais sobre a disponibilidade.",
   },
@@ -49,6 +61,7 @@ const ARTWORKS: Artwork[] = [
     ],
     name: "Hannya — O Peso das Emoções",
     price: "R$ 449,00",
+    status: "available",
     whatsappMessage:
       "Olá! Tenho interesse na obra Hannya — O Peso das Emoções, no valor de R$ 449,00. Gostaria de saber mais sobre a disponibilidade.",
   },
@@ -61,6 +74,7 @@ const ARTWORKS: Artwork[] = [
     ],
     name: "O Espírito do Samurai",
     price: "R$ 179,00",
+    status: "available",
     whatsappMessage:
       "Olá! Tenho interesse na obra O Espírito do Samurai, no valor de R$ 179,00. Gostaria de saber mais sobre a disponibilidade.",
   },
@@ -70,8 +84,41 @@ const ARTWORKS: Artwork[] = [
     images: [{ height: 1280, src: douradoImage, width: 720 }],
     name: "Pássaro Dourado sobre Momiji",
     price: "R$ 299,00",
+    status: "available",
     whatsappMessage:
       "Olá! Tenho interesse na obra Pássaro Dourado sobre Momiji, no valor de R$ 299,00. Gostaria de saber mais sobre a disponibilidade.",
+  },
+  {
+    description:
+      "Uma obra autoral que une estética botânica e geometria contemporânea.\n\nPintura original feita à mão, com traços exclusivos e identidade própria.\n\nAcrílico sobre tela, emoldurada.",
+    images: [{ height: 1280, src: botanicaImage, width: 720 }],
+    name: "Essência Botânica",
+    price: "R$ 349,00",
+    status: "sold_out",
+    whatsappMessage:
+      "Olá! Tenho interesse na obra Essência Botânica, no valor de R$ 349,00. Gostaria de saber mais sobre a disponibilidade.",
+  },
+  {
+    description:
+      "Uma composição autoral inspirada na cultura Sound System e na tradição reggae.\n\nAcrílico sobre tela.\n\nArte autoral.",
+    images: [{ height: 1254, src: sonoraImage, width: 1254 }],
+    name: "Frequência Sonora",
+    price: "R$ 149,00",
+    status: "sold_out",
+    whatsappMessage: "",
+  },
+  {
+    description:
+      "Uma representação de força, imponência e movimento. Esta obra autoral retrata o dragão como símbolo de poder, sabedoria e proteção, envolvido pela intensidade de uma tempestade.\n\nProduzida artesanalmente com tinta acrílica e tinta profissional de tatuagem sobre tela.\n\nDimensões: 50,5 × 40,5 cm\n\nTécnica: Mista\n\nOriginal: Peça única, desenho autoral.\n\nUma obra sobre força, presença e a energia indomável da natureza.",
+    images: [
+      { height: 1280, src: arashiPrimaryImage, width: 720 },
+      { height: 1280, src: arashiSecondaryImage, width: 720 },
+    ],
+    name: "Tatsu no Arashi - A Tempestade do Dragão",
+    price: "R$ 899,00",
+    status: "available",
+    whatsappMessage:
+      "Olá! Tenho interesse na obra Tatsu no Arashi - A Tempestade do Dragão, no valor de R$ 899,00. Gostaria de saber mais sobre a disponibilidade.",
   },
 ];
 
@@ -372,6 +419,7 @@ function ComingSoonPage() {
 
         <div className="divide-y divide-outline-variant/60">
           {ARTWORKS.map((artwork, index) => {
+            const isSoldOut = artwork.status === "sold_out";
             const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(artwork.whatsappMessage)}`;
 
             return (
@@ -400,11 +448,20 @@ function ComingSoonPage() {
                   </motion.h2>
 
                   <motion.p
-                    className="mt-6 max-w-[58ch] break-words text-pretty text-[0.95rem] leading-[1.7] text-on-surface-variant sm:mt-7 sm:text-[1.02rem]"
+                    className="mt-6 max-w-[58ch] whitespace-pre-line break-words text-pretty text-[0.95rem] leading-[1.7] text-on-surface-variant sm:mt-7 sm:text-[1.02rem]"
                     {...getStaggerItemProps()}
                   >
                     {artwork.description}
                   </motion.p>
+
+                  {artwork.dimensions && (
+                    <motion.p
+                      className="mt-4 text-[0.95rem] leading-[1.7] text-on-surface-variant sm:text-[1.02rem]"
+                      {...getStaggerItemProps()}
+                    >
+                      Dimensões: {artwork.dimensions}
+                    </motion.p>
+                  )}
 
                   <motion.div
                     className="artworks-collection-purchase mt-8 flex flex-col items-start gap-5 border-t border-outline-variant/60 pt-6 md:mt-9 md:flex-row md:items-center md:justify-between md:gap-6 md:pt-7"
@@ -415,17 +472,32 @@ function ComingSoonPage() {
                       <p className="mt-2 font-headline text-[clamp(1.55rem,3vw,2.1rem)] font-black tracking-[0.02em] text-on-surface">
                         {artwork.price}
                       </p>
+                      {isSoldOut && (
+                        <p className="mt-2 font-label text-[9px] font-medium uppercase tracking-[0.26em] text-tertiary-container">
+                          Esgotado
+                        </p>
+                      )}
                     </div>
 
-                    <a
-                      aria-label={`Tenho interesse na obra ${artwork.name}`}
-                      className="inline-flex min-h-11 w-full items-center justify-center border border-tertiary-container bg-tertiary-container px-6 py-3 font-label text-[10px] font-medium uppercase tracking-[0.24em] text-on-tertiary-container transition-colors duration-500 hover:bg-transparent hover:text-tertiary-container sm:w-auto"
-                      href={whatsappUrl}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      Tenho Interesse
-                    </a>
+                    {isSoldOut ? (
+                      <button
+                        className="inline-flex min-h-11 w-full cursor-not-allowed items-center justify-center border border-outline-variant/70 bg-surface-container-high px-6 py-3 font-label text-[10px] font-medium uppercase tracking-[0.24em] text-on-surface-variant sm:w-auto"
+                        disabled
+                        type="button"
+                      >
+                        Obra Esgotada
+                      </button>
+                    ) : (
+                      <a
+                        aria-label={`Tenho interesse na obra ${artwork.name}`}
+                        className="inline-flex min-h-11 w-full items-center justify-center border border-tertiary-container bg-tertiary-container px-6 py-3 font-label text-[10px] font-medium uppercase tracking-[0.24em] text-on-tertiary-container transition-colors duration-500 hover:bg-transparent hover:text-tertiary-container sm:w-auto"
+                        href={whatsappUrl}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Tenho Interesse
+                      </a>
+                    )}
                   </motion.div>
                 </motion.div>
               </article>
