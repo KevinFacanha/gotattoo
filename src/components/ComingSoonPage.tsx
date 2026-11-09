@@ -6,8 +6,7 @@ import botanicaImage from "../botanica.jpeg";
 import douradoImage from "../dourado.jpeg";
 import hannyaPrimaryImage from "../Hannya 1.jpeg";
 import hannyaSecondaryImage from "../Hannya.jpeg";
-import ryuImage from "../Ryu.jpeg";
-import ryuSecondaryImage from "../ryu1.jpeg";
+import ryuImage from "../ryu1.jpeg";
 import samuraiPrimaryImage from "../samurai.jpeg";
 import samuraiSecondaryImage from "../samurai2.jpeg";
 import sonoraImage from "../sonora.jpeg";
@@ -42,10 +41,7 @@ const ARTWORKS: Artwork[] = [
     description:
       "Entre ondas turbulentas e nuvens carregadas, o dragão emerge como símbolo de força, sabedoria e transformação. Inspirada na estética oriental japonesa, a obra explora o contraste entre o vermelho e o negro, evocando a dualidade entre destruição e renascimento, caos e equilíbrio.",
     dimensions: "89 x 60 cm",
-    images: [
-      { height: 1280, src: ryuImage, width: 960 },
-      { height: 720, src: ryuSecondaryImage, width: 1280 },
-    ],
+    images: [{ height: 1280, src: ryuImage, width: 720 }],
     name: "Ryū — O Despertar do Dragão",
     price: "R$ 2.499,00",
     status: "available",
@@ -61,7 +57,7 @@ const ARTWORKS: Artwork[] = [
     ],
     name: "Hannya — O Peso das Emoções",
     price: "R$ 449,00",
-    status: "available",
+    status: "sold_out",
     whatsappMessage:
       "Olá! Tenho interesse na obra Hannya — O Peso das Emoções, no valor de R$ 449,00. Gostaria de saber mais sobre a disponibilidade.",
   },
@@ -74,7 +70,7 @@ const ARTWORKS: Artwork[] = [
     ],
     name: "O Espírito do Samurai",
     price: "R$ 179,00",
-    status: "available",
+    status: "sold_out",
     whatsappMessage:
       "Olá! Tenho interesse na obra O Espírito do Samurai, no valor de R$ 179,00. Gostaria de saber mais sobre a disponibilidade.",
   },
